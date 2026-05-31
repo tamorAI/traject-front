@@ -1,17 +1,8 @@
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 import { Database } from "./supabase";
 import { ENV } from "@/lib/env";
 
-const options = {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-  },
-};
-
-export const supabaseClient = createClient<Database>(
+export const supabaseClient = createBrowserClient<Database>(
   ENV.NEXT_PUBLIC_SUPABASE_URL,
   ENV.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  options,
 );
