@@ -11,7 +11,7 @@ const options = {
 };
 
 export const supabaseClient = createClient<Database>(
-  ENV.SUPABASE_URL,
-  ENV.SUPABASE_ANON_KEY,
+  ENV.NEXT_PUBLIC_SUPABASE_URL,
+  ENV.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   options,
 );

@@ -1,8 +1,8 @@
 import * as z from "zod";
 
 const envSchema = z.object({
-  SUPABASE_ANON_KEY: z.string(),
-  SUPABASE_URL: z.string(),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
+  NEXT_PUBLIC_SUPABASE_URL: z.string(),
   NODE_ENV: z.enum(["development", "production"]),
 });
 
