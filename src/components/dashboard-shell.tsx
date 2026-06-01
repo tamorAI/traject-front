@@ -4,15 +4,19 @@ import { SidebarInset, SidebarProvider } from "@tamor/ui/components/sidebar";
 import { AppSidebar } from "./app-sidebar";
 
 export function DashboardShell({
-  email,
+  user,
   children,
 }: {
-  email: string;
+  user: {
+    name: string;
+    email: string;
+    avatar: string;
+  };
   children: React.ReactNode;
 }) {
   return (
     <SidebarProvider defaultOpen={true}>
-      <AppSidebar />
+      <AppSidebar user={user} />
 
       <SidebarInset>
         <main className="flex-1 p-6">{children}</main>

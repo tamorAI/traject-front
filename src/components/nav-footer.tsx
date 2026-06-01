@@ -24,6 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@tamor/ui/components/tooltip";
+import { useRouter } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
 import {
   BookmarkPlus,
@@ -45,6 +46,7 @@ export function NavFooter({
     avatar: string;
   };
 }) {
+  const router = useRouter();
   return (
     <SidebarFooter className="p-4">
       <SidebarMenu>
@@ -59,11 +61,11 @@ export function NavFooter({
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="m-2">
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => router.push("/settings/profile")}>
                     <User size={16} className="opacity-80" aria-hidden="true" />
                     Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => router.push("/settings/general")}>
                     <Settings
                       size={16}
                       className="opacity-80"
@@ -71,9 +73,7 @@ export function NavFooter({
                     />
                     Settings
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => signOut()}
-                  >
+                  <DropdownMenuItem onClick={() => signOut()}>
                     <LogOut
                       size={16}
                       className="opacity-80"
