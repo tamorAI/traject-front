@@ -1,85 +1,34 @@
 "use client";
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuItem,
-} from "@tamor/ui/components/sidebar";
+import { Sidebar, SidebarContent } from "@tamor/ui/components/sidebar";
 import { ScrollArea } from "@tamor/ui/components/scroll-area";
-import Logo from "@/assets/logo.webp";
 import { NavItem, NavMain } from "@/components/nav-main";
 import {
-  AlignStartVertical,
-  PieChart,
-  CircleUserRound,
-  ClipboardList,
-  Notebook,
-  NotepadText,
-  Table,
-  Languages,
-  Ticket,
   LayoutGrid,
+  Activity,
+  Radio,
+  Shield,
+  AlertTriangle,
+  ScrollText,
+  Bot,
   Settings,
 } from "lucide-react";
 import { NavFooter } from "./nav-footer";
 
 export const navData: NavItem[] = [
-  // Dashboards Section
-  { label: "Dashboards", isSection: true },
-  { title: "Overview", icon: LayoutGrid, href: "#" },
+  { label: "Observe", isSection: true },
+  { title: "Dashboard", icon: LayoutGrid, href: "/" },
+  { title: "Trajectories", icon: Activity, href: "#" },
+  { title: "Live feed", icon: Radio, href: "#" },
 
-  // Pages Section
-  { label: "Pages", isSection: true },
-  { title: "Tables", icon: Table, href: "#" },
-  { title: "Forms", icon: ClipboardList, href: "#" },
-  { title: "User Profile", icon: CircleUserRound, href: "#" },
+  { label: "Govern", isSection: true },
+  { title: "Policies", icon: Shield, href: "#" },
+  { title: "Incidents", icon: AlertTriangle, href: "#" },
+  { title: "Audit log", icon: ScrollText, href: "#" },
 
-  // Apps Section
-  { label: "Apps", isSection: true },
-  { title: "Notes", icon: Notebook, href: "#" },
-  { title: "Tickets", icon: Ticket, href: "#" },
-  {
-    title: "Blogs",
-    icon: Languages,
-    children: [
-      { title: "Blog Post", href: "#" },
-      { title: "Blog Detail", href: "#" },
-      { title: "Blog Edit", href: "#" },
-      { title: "Blog Create", href: "#" },
-      { title: "Manage Blogs", href: "#" },
-    ],
-  },
-  // Form Elements Section
-  { label: "Form Elements", isSection: true },
-  {
-    title: "Shadcn Forms",
-    icon: NotepadText,
-    children: [
-      { title: "Button", href: "#" },
-      { title: "Input", href: "#" },
-      { title: "Select", href: "#" },
-      { title: "Checkbox", href: "#" },
-      { title: "Radio", href: "#" },
-    ],
-  },
-  {
-    title: "Form layouts",
-    icon: AlignStartVertical,
-    children: [
-      { title: "Forms Horizontal", href: "#" },
-      { title: "Forms Vertical", href: "#" },
-      { title: "Forms Validation", href: "#" },
-      { title: "Forms Examples", href: "#" },
-      { title: "Forms Wizard", href: "#" },
-    ],
-  },
-  {
-    title: "Settings",
-    icon: Settings,
-    href: "/settings/profile",
-  },
+  { label: "Configure", isSection: true },
+  { title: "Agents", icon: Bot, href: "#" },
+  { title: "Settings", icon: Settings, href: "/settings/profile" },
 ];
 
 export function AppSidebar({
