@@ -1,27 +1,22 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import type { CSSProperties } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ToastProvider } from "@tamor/ui/components/toast";
 import { CursorGlow } from "@/components/cursor-glow";
 import { ScrollProgress } from "@/components/scroll-progress";
 import "./globals.css";
 
-const sans = Manrope({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const heading = Fraunces({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: "Trajeckt",
   description: "Understand, govern, and control how AI agents operate.",
 };
+
+const fontVariables = {
+  "--font-sans":
+    'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+  "--font-heading":
+    'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+} as CSSProperties;
 
 export default function RootLayout({
   children,
@@ -32,7 +27,8 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${sans.variable} ${heading.variable} h-full antialiased`}
+      className="h-full antialiased"
+      style={fontVariables}
     >
       <head>
         <meta

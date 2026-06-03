@@ -1,28 +1,23 @@
 "use client";
 
-import { useRef } from "react";
+import Link from "next/link";
 import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "motion/react";
-import {
-  Activity,
-  Shield,
-  Search,
-  Sparkles,
   ArrowRight,
+  Activity,
+  Search,
+  Shield,
+  Sparkles,
+  Workflow,
 } from "lucide-react";
 import { Button } from "@tamor/ui/components/button";
-import Link from "next/link";
+import { motion } from "motion/react";
 
 const pillars = [
   {
     id: "observe",
     icon: Activity,
     title: "Observe",
-    summary: "See how agents actually work.",
+    summary: "See how agents actually work, not how they were intended to work.",
     points: [
       "Execution timelines",
       "Decision paths",
@@ -35,7 +30,7 @@ const pillars = [
     id: "govern",
     icon: Shield,
     title: "Govern",
-    summary: "Set boundaries before execution.",
+    summary: "Set boundaries before execution and enforce policy in real time.",
     points: [
       "Approved actions",
       "Resource controls",
@@ -48,7 +43,7 @@ const pillars = [
     id: "investigate",
     icon: Search,
     title: "Investigate",
-    summary: "Understand what happened.",
+    summary: "Replay incidents, trace provenance, and understand what changed.",
     points: [
       "Session replay",
       "Incident analysis",
@@ -61,7 +56,7 @@ const pillars = [
     id: "improve",
     icon: Sparkles,
     title: "Improve",
-    summary: "Learn from every trajectory.",
+    summary: "Turn trajectories into operating intelligence and benchmarkable data.",
     points: [
       "Success patterns",
       "Failure patterns",
@@ -72,212 +67,167 @@ const pillars = [
   },
 ];
 
-function TiltCard({
-  children,
+function PillarCard({
+  pillar,
   className,
 }: {
-  children: React.ReactNode;
-  className?: string;
+  pillar: (typeof pillars)[number];
+  className: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-
-  const springX = useSpring(mouseX, { stiffness: 200, damping: 25 });
-  const springY = useSpring(mouseY, { stiffness: 200, damping: 25 });
-
-  const rotateX = useTransform(springY, [0, 1], [4, -4]);
-  const rotateY = useTransform(springX, [0, 1], [-4, 4]);
-
-  const glareX = useTransform(springX, [0, 1], [0, 100]);
-  const glareY = useTransform(springY, [0, 1], [0, 100]);
-  const glareOpacity = useTransform(
-    springX,
-    [0, 0.5, 1],
-    [0.3, 0, 0.3],
-  );
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0.5);
-    mouseY.set(0.5);
-  };
+  const Icon = pillar.icon;
 
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, perspective: 800 }}
-      className={className}
+    <motion.article
+      initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -3 }}
+      className={`group relative overflow-hidden border border-border bg-background p-6 shadow-[0_20px_60px_-52px_hsl(var(--foreground)/0.24)] ${className}`}
     >
-      {children}
-      <motion.div
-        className="pointer-events-none absolute inset-0 rounded-2xl"
-        style={{
-          background: `radial-gradient(circle at ${glareX}% ${glareY}%, hsl(var(--foreground) / 0.06), transparent 60%)`,
-          opacity: glareOpacity,
-        }}
-      />
-    </motion.div>
+      <div className="relative">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex h-11 w-11 items-center justify-center border border-border bg-muted/40 text-foreground">
+            <Icon className="h-5 w-5" />
+          </div>
+          <div className="border border-border bg-muted/30 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+            {pillar.id}
+          </div>
+        </div>
+
+        <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em] font-heading">
+          {pillar.title}
+        </h3>
+        <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
+          {pillar.summary}
+        </p>
+
+        <div className="mt-5 space-y-2.5">
+          {pillar.points.map((point, index) => (
+            <motion.div
+              key={point}
+              initial={{ opacity: 0, x: -8 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.05 + index * 0.03, duration: 0.25 }}
+              className="flex items-center gap-2.5 border border-border/70 bg-muted/20 px-3 py-2 text-sm text-muted-foreground"
+            >
+              <span className="h-1.5 w-1.5 bg-foreground/60" />
+              {point}
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-6 flex items-center justify-between border-t border-border/70 pt-4">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              {pillar.id === "observe"
+                ? "Visibility"
+                : pillar.id === "govern"
+                  ? "Controls"
+                  : pillar.id === "investigate"
+                    ? "Replay"
+                    : "Learning"}
+            </div>
+            <div className="mt-1 text-sm font-medium">
+              {pillar.id === "observe"
+                ? "Execution state"
+                : pillar.id === "govern"
+                  ? "Boundary enforcement"
+                  : pillar.id === "investigate"
+                    ? "Incident forensics"
+                    : "Trajectory intelligence"}
+            </div>
+          </div>
+          <span className="inline-flex h-8 w-8 items-center justify-center border border-border bg-background text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+            <ArrowRight className="h-4 w-4" />
+          </span>
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="relative py-24 sm:py-32">
+    <section id="platform" className="relative py-8 sm:py-12 lg:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              stiffness: 180,
-              damping: 20,
-              mass: 1,
-            }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/50 px-4 py-1.5 text-xs text-muted-foreground"
-          >
-            Four pillars
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true }}
-            transition={{
-              delay: 0.1,
-              type: "spring",
-              stiffness: 180,
-              damping: 20,
-              mass: 1,
-            }}
-            className="text-3xl font-semibold tracking-tight sm:text-4xl"
-          >
-            Complete agent operations
-          </motion.h2>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
+              className="inline-flex items-center gap-2 border border-border bg-background px-4 py-1.5 text-xs text-muted-foreground"
+            >
+              <Workflow className="h-3.5 w-3.5" />
+              Platform pillars
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.05, duration: 0.35 }}
+              className="mt-5 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl font-heading"
+            >
+              A control surface for every part of the agent lifecycle
+            </motion.h2>
+          </div>
+
           <motion.p
-            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{
-              delay: 0.2,
-              type: "spring",
-              stiffness: 180,
-              damping: 20,
-              mass: 1,
-            }}
-            className="mt-4 text-muted-foreground"
+            transition={{ delay: 0.1, duration: 0.3 }}
+            className="max-w-xl text-sm leading-6 text-muted-foreground sm:text-base"
           >
-            From observation to improvement — a unified platform for
-            understanding and controlling AI agent behavior.
+            Trajeckt does for agent execution what Firecrawl does for live web data:
+            reveal the path, shape the guardrails, and surface the intelligence hidden
+            in every run.
           </motion.p>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {pillars.map((pillar, index) => {
-            const Icon = pillar.icon;
-            return (
-              <motion.div
-                key={pillar.id}
-                initial={{ opacity: 0, y: 24, filter: "blur(4px)" }}
-                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{
-                  delay: index * 0.1,
-                  type: "spring",
-                  stiffness: 180,
-                  damping: 20,
-                  mass: 1,
-                }}
-              >
-                <TiltCard className="group relative rounded-2xl border border-border/50 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:shadow-lg">
-                  <motion.div
-                    className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-muted-foreground"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 20,
-                    }}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </motion.div>
-                  <h3 className="text-lg font-semibold">{pillar.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {pillar.summary}
-                  </p>
-                  <ul className="mt-4 space-y-2.5">
-                    {pillar.points.map((point, i) => (
-                      <motion.li
-                        key={point}
-                        initial={{ opacity: 0, x: -8 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 0.3 + index * 0.05 + i * 0.03,
-                          duration: 0.3,
-                          ease: [0.16, 1, 0.3, 1],
-                        }}
-                        className="flex items-center gap-2 text-sm text-muted-foreground"
-                      >
-                        <motion.span
-                          className="h-1 w-1 shrink-0 rounded-full bg-muted-foreground/40"
-                          whileHover={{ scale: 2, backgroundColor: "hsl(var(--foreground) / 0.6)" }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 15,
-                          }}
-                        />
-                        {point}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </TiltCard>
-              </motion.div>
-            );
-          })}
+        <div className="mt-10 grid gap-6 lg:grid-cols-12">
+          <PillarCard pillar={pillars[0]} className="lg:col-span-7" />
+          <PillarCard pillar={pillars[1]} className="lg:col-span-5" />
+          <PillarCard pillar={pillars[2]} className="lg:col-span-5" />
+          <PillarCard pillar={pillars[3]} className="lg:col-span-7" />
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{
-            delay: 0.5,
-            type: "spring",
-            stiffness: 180,
-            damping: 20,
-            mass: 1,
-          }}
-          className="mt-12 text-center"
+          transition={{ delay: 0.15, duration: 0.3 }}
+          className="mt-8 border border-border bg-background p-4 shadow-[0_20px_60px_-52px_hsl(var(--foreground)/0.24)]"
         >
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <Button
-              variant="outline"
-              className="group relative overflow-hidden"
-              render={<Link href="/auth/signup" />}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                Explore all features
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                Why this matters
+              </div>
+              <div className="mt-1 text-lg font-medium tracking-[-0.02em] font-heading">
+                Logs tell you what happened. Trajectories tell you why it happened.
+              </div>
+            </div>
+            <Button variant="outline" size="sm" render={<Link href="#intelligence" />}>
+              See trajectory intelligence
+              <ArrowRight className="ml-2 h-3.5 w-3.5" />
             </Button>
-          </motion.div>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {["Execution timelines", "Policy boundaries", "Benchmarked outcomes"].map(
+              (item) => (
+                <div
+                  key={item}
+                  className="border border-border/70 bg-muted/20 px-4 py-3 text-sm text-muted-foreground"
+                >
+                  {item}
+                </div>
+              ),
+            )}
+          </div>
         </motion.div>
       </div>
     </section>
