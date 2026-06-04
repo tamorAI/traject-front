@@ -9,20 +9,17 @@ export default function LandingPage() {
   return (
     <main className="relative isolate overflow-hidden">
       <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at top, rgba(0,0,0,0.03), transparent 42%), linear-gradient(to bottom, transparent, transparent 55%, rgba(0,0,0,0.02))",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05] dark:opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(0,0,0,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.12) 1px, transparent 1px)",
-          backgroundSize: "88px 88px",
-        }}
-      />
+        className="hidden z-100 lg:block absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+      >
+        <div className="relative mx-auto max-w-7xl h-full px-4 sm:px-6 lg:px-8">
+          <div className="absolute left-0 inset-y-0 w-px bg-border" />
+          <div className="absolute right-0 inset-y-0 w-px bg-border" />
+          {/* <div className="absolute left-0 right-0 top-1/4 h-px bg-border" />
+          <div className="absolute left-0 right-0 top-2/4 h-px bg-border" />
+          <div className="absolute left-0 right-0 top-3/4 h-px bg-border" /> */}
+        </div>
+      </div>
 
       <Header />
       <Hero />

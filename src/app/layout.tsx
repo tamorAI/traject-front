@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
-import type { CSSProperties } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ToastProvider } from "@tamor/ui/components/toast";
 import { CursorGlow } from "@/components/cursor-glow";
 import { ScrollProgress } from "@/components/scroll-progress";
 import "./globals.css";
+import { Geist, Geist_Mono } from "next/font/google";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Trajeckt",
   description: "Understand, govern, and control how AI agents operate.",
 };
-
-const fontVariables = {
-  "--font-sans":
-    'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-  "--font-heading":
-    'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
-} as CSSProperties;
 
 export default function RootLayout({
   children,
@@ -27,8 +30,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className="h-full antialiased"
-      style={fontVariables}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <meta

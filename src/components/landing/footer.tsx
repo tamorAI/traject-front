@@ -35,10 +35,8 @@ export default function Footer() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45 }}
-      className="relative border-t border-border/70 bg-background/60"
+      className="relative border-t bg-background/60"
     >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:py-16">
           <div className="max-w-xl">
@@ -57,21 +55,24 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 max-w-lg text-sm leading-6 text-muted-foreground">
-              Built for teams that need to observe execution, enforce guardrails,
-              and improve agent performance over time.
+              Built for teams that need to observe execution, enforce
+              guardrails, and improve agent performance over time.
             </p>
 
-                <div className="mt-6 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              {["Trajectory visibility", "Governance", "Replay", "Learning"].map(
-                (item) => (
-                  <span
-                    key={item}
-                    className="border border-border/70 bg-background/70 px-3 py-1.5"
-                  >
-                    {item}
-                  </span>
-                ),
-              )}
+            <div className="mt-6 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              {[
+                "Trajectory visibility",
+                "Governance",
+                "Replay",
+                "Learning",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="border border-border/70 bg-background/70 px-3 py-1.5"
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -84,7 +85,7 @@ export default function Footer() {
                 <ul className="mt-4 space-y-3">
                   {group.links.map((link) => (
                     <li key={link.name}>
-                    <Link
+                      <Link
                         href={link.href}
                         className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
                       >
@@ -100,7 +101,9 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-border/60 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} Trajeckt. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Trajeckt. All rights reserved.
+          </p>
           <p>Agent operations, without the guesswork.</p>
         </div>
       </div>

@@ -103,7 +103,9 @@ function TrajectoryFlow() {
           <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             Observed trajectory
           </div>
-          <div className="mt-1 text-sm font-medium">Declared plan vs real execution</div>
+          <div className="mt-1 text-sm font-medium">
+            Declared plan vs real execution
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
           <span className="border border-border bg-muted/30 px-3 py-1.5">
@@ -167,7 +169,11 @@ function TrajectoryFlow() {
                 initial={{ opacity: 0, scale: 0.3 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  delay: index * 0.08,
+                  duration: 0.4,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               />
               <motion.circle
                 cx={cx}
@@ -184,7 +190,9 @@ function TrajectoryFlow() {
                 y={cy + 28}
                 textAnchor="middle"
                 className="fill-muted-foreground text-[10px] uppercase tracking-[0.2em]"
-                style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
+                style={{
+                  fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                }}
               >
                 {trajectoryGraph[index].tag}
               </text>
@@ -193,7 +201,8 @@ function TrajectoryFlow() {
 
           {nodeCoords.slice(0, -1).map((_, index) => {
             const midX = (nodeCoords[index][0] + nodeCoords[index + 1][0]) / 2;
-            const midY = (nodeCoords[index][1] + nodeCoords[index + 1][1]) / 2 - 8;
+            const midY =
+              (nodeCoords[index][1] + nodeCoords[index + 1][1]) / 2 - 8;
             return (
               <motion.text
                 key={`arrow-${index}`}
@@ -219,13 +228,20 @@ function TrajectoryFlow() {
           { label: "Observed", value: "11", desc: "actual vertices" },
           { label: "Deviation", value: "+2", desc: "recovery steps" },
         ].map((item) => (
-          <div key={item.label} className="border border-border bg-muted/20 px-4 py-3">
+          <div
+            key={item.label}
+            className="border border-border bg-muted/20 px-4 py-3"
+          >
             <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
               {item.label}
             </div>
             <div className="mt-1 flex items-baseline gap-2">
-              <span className="text-lg font-semibold tracking-tight">{item.value}</span>
-              <span className="text-[10px] text-muted-foreground">{item.desc}</span>
+              <span className="text-lg font-semibold tracking-tight">
+                {item.value}
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                {item.desc}
+              </span>
             </div>
           </div>
         ))}
@@ -303,7 +319,9 @@ function Card({
   className?: string;
 }) {
   return (
-    <div className={`flex flex-col border border-border bg-background p-4 shadow-[0_20px_60px_-52px_hsl(var(--foreground)/0.24)] ${className}`}>
+    <div
+      className={`flex flex-col border border-border bg-background p-4 shadow-[0_20px_60px_-52px_hsl(var(--foreground)/0.24)] ${className}`}
+    >
       <div className="border-b border-border pb-3">
         <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           {title}
@@ -320,8 +338,6 @@ export default function TrajectoryIntelligence() {
 
   return (
     <section id="intelligence" className="relative py-10 sm:py-16 lg:py-20">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,0,0,0.03),transparent_36%)]" />
-
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -350,8 +366,9 @@ export default function TrajectoryIntelligence() {
           transition={{ delay: 0.1, duration: 0.3 }}
           className="mt-4 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base"
         >
-          Trajeckt turns executions into a structured evidence layer: live feeds,
-          policy state, replay history, and the learning signals that shape better runs.
+          Trajeckt turns executions into a structured evidence layer: live
+          feeds, policy state, replay history, and the learning signals that
+          shape better runs.
         </motion.p>
 
         <motion.div
@@ -372,7 +389,11 @@ export default function TrajectoryIntelligence() {
             transition={{ delay: 0.2, duration: 0.4 }}
             className="flex flex-col lg:col-span-7"
           >
-            <Card title="Execution feed" description="A live, compact view of what changed during the run." className="flex-1">
+            <Card
+              title="Execution feed"
+              description="A live, compact view of what changed during the run."
+              className="flex-1"
+            >
               <div className="relative pl-5">
                 <div className="absolute left-0 top-2 bottom-2 w-px bg-border" />
                 <div className="space-y-3">
@@ -381,7 +402,9 @@ export default function TrajectoryIntelligence() {
                       <div className="absolute -left-[13px] top-2 h-2.5 w-2.5 border border-foreground bg-background" />
                       <div className="grid gap-2 border border-border bg-muted/15 p-3">
                         <div className="flex items-center justify-between gap-3">
-                          <div className="text-sm font-medium">{event.title}</div>
+                          <div className="text-sm font-medium">
+                            {event.title}
+                          </div>
                           <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                             <Clock3 className="h-3 w-3" />
                             {event.time}
@@ -424,15 +447,26 @@ export default function TrajectoryIntelligence() {
               ))}
             </div>
 
-            <Card title="Failure breakdown" description="Root causes by occurrence frequency." className="flex-1">
+            <Card
+              title="Failure breakdown"
+              description="Root causes by occurrence frequency."
+              className="flex-1"
+            >
               <div className="space-y-2">
                 {failureRows.map((item) => (
-                  <div key={item.label} className="flex items-center justify-between gap-3 border border-border bg-muted/15 px-3 py-2.5">
+                  <div
+                    key={item.label}
+                    className="flex items-center justify-between gap-3 border border-border bg-muted/15 px-3 py-2.5"
+                  >
                     <div className="flex items-center gap-2">
                       <AlertTriangle className="h-3 w-3 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {item.label}
+                      </span>
                     </div>
-                    <span className="text-sm font-semibold tracking-tight tabular-nums">{item.value}</span>
+                    <span className="text-sm font-semibold tracking-tight tabular-nums">
+                      {item.value}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -462,7 +496,9 @@ export default function TrajectoryIntelligence() {
                   </span>
                   <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
                 </div>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.body}</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {item.body}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -476,28 +512,61 @@ export default function TrajectoryIntelligence() {
           className="mt-5"
         >
           <Tabs value={tabValue} onValueChange={setTabValue}>
-            <TabsList variant="underline" className="w-full justify-start gap-2 border-b border-border pb-1">
-              <TabsTrigger value="feed" className="rounded-none border border-border bg-background px-4 py-2 text-xs uppercase tracking-[0.16em]">
+            <TabsList
+              variant="underline"
+              className="w-full justify-start gap-2 border-b border-border pb-1"
+            >
+              <TabsTrigger
+                value="feed"
+                className="rounded-none border border-border bg-background px-4 py-2 text-xs uppercase tracking-[0.16em]"
+              >
                 Runtime
               </TabsTrigger>
-              <TabsTrigger value="policy" className="rounded-none border border-border bg-background px-4 py-2 text-xs uppercase tracking-[0.16em]">
+              <TabsTrigger
+                value="policy"
+                className="rounded-none border border-border bg-background px-4 py-2 text-xs uppercase tracking-[0.16em]"
+              >
                 Policy
               </TabsTrigger>
-              <TabsTrigger value="learning" className="rounded-none border border-border bg-background px-4 py-2 text-xs uppercase tracking-[0.16em]">
+              <TabsTrigger
+                value="learning"
+                className="rounded-none border border-border bg-background px-4 py-2 text-xs uppercase tracking-[0.16em]"
+              >
                 Learning
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="feed" className="mt-5 outline-none">
               <div className="grid gap-5 items-stretch lg:grid-cols-2">
-                <Card title="Trajectory canvas" description="A dense visual of the plan, recovery, and output path.">
+                <Card
+                  title="Trajectory canvas"
+                  description="A dense visual of the plan, recovery, and output path."
+                >
                   <div className="border border-border bg-muted/15 p-3">
                     <svg viewBox="0 0 800 260" className="h-[200px] w-full">
                       <defs>
-                        <linearGradient id="canvasGrad" x1="0" y1="0" x2="1" y2="0">
-                          <stop offset="0%" stopColor="currentColor" stopOpacity="0.06" />
-                          <stop offset="50%" stopColor="currentColor" stopOpacity="0.2" />
-                          <stop offset="100%" stopColor="currentColor" stopOpacity="0.06" />
+                        <linearGradient
+                          id="canvasGrad"
+                          x1="0"
+                          y1="0"
+                          x2="1"
+                          y2="0"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="currentColor"
+                            stopOpacity="0.06"
+                          />
+                          <stop
+                            offset="50%"
+                            stopColor="currentColor"
+                            stopOpacity="0.2"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="currentColor"
+                            stopOpacity="0.06"
+                          />
                         </linearGradient>
                       </defs>
                       <path
@@ -554,7 +623,10 @@ export default function TrajectoryIntelligence() {
                             y={cy + 24}
                             textAnchor="middle"
                             className="fill-muted-foreground text-[10px] uppercase tracking-[0.2em]"
-                            style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
+                            style={{
+                              fontFamily:
+                                "ui-monospace, SFMono-Regular, monospace",
+                            }}
                           >
                             {trajectoryGraph[index].tag}
                           </text>
@@ -564,7 +636,10 @@ export default function TrajectoryIntelligence() {
                   </div>
                   <div className="mt-4 grid grid-cols-3 gap-3">
                     {["Declared", "Observed", "Recovery"].map((item, index) => (
-                      <div key={item} className="border border-border bg-muted/20 px-3 py-3">
+                      <div
+                        key={item}
+                        className="border border-border bg-muted/20 px-3 py-3"
+                      >
                         <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                           {item}
                         </div>
@@ -576,14 +651,20 @@ export default function TrajectoryIntelligence() {
                   </div>
                 </Card>
 
-                <Card title="Commitment visibility" description="Declared versus observed fidelity across the run.">
+                <Card
+                  title="Commitment visibility"
+                  description="Declared versus observed fidelity across the run."
+                >
                   <div className="grid gap-4 sm:grid-cols-3">
                     {[
                       { label: "Declared", value: "9 vertices" },
                       { label: "Observed", value: "11 vertices" },
                       { label: "Deviation", value: "+2 recovery" },
                     ].map((item) => (
-                      <div key={item.label} className="border border-border bg-muted/20 px-4 py-3">
+                      <div
+                        key={item.label}
+                        className="border border-border bg-muted/20 px-4 py-3"
+                      >
                         <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                           {item.label}
                         </div>
@@ -607,13 +688,21 @@ export default function TrajectoryIntelligence() {
 
             <TabsContent value="policy" className="mt-5 outline-none">
               <div className="grid gap-5 items-stretch lg:grid-cols-2">
-                <Card title="Policy state" description="The guardrails that shape what the agent can do.">
+                <Card
+                  title="Policy state"
+                  description="The guardrails that shape what the agent can do."
+                >
                   <div className="grid gap-3">
                     {policyRows.map(([label, value, scope]) => (
-                      <div key={label} className="grid grid-cols-[1fr_auto] gap-3 border border-border bg-background px-3 py-3">
+                      <div
+                        key={label}
+                        className="grid grid-cols-[1fr_auto] gap-3 border border-border bg-background px-3 py-3"
+                      >
                         <div>
                           <div className="text-sm font-medium">{label}</div>
-                          <div className="mt-1 text-xs text-muted-foreground">{scope}</div>
+                          <div className="mt-1 text-xs text-muted-foreground">
+                            {scope}
+                          </div>
                         </div>
                         <div className="text-right">
                           <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
@@ -625,35 +714,59 @@ export default function TrajectoryIntelligence() {
                   </div>
                 </Card>
 
-                <Card title="Blocked actions" description="A compact audit trail of interventions.">
+                <Card
+                  title="Blocked actions"
+                  description="A compact audit trail of interventions."
+                >
                   <div className="space-y-3">
                     {[
-                      ["Write to production bucket", "Denied", "Human approval missing"],
-                      ["Escalate budget by 20%", "Routed", "Needs operator review"],
+                      [
+                        "Write to production bucket",
+                        "Denied",
+                        "Human approval missing",
+                      ],
+                      [
+                        "Escalate budget by 20%",
+                        "Routed",
+                        "Needs operator review",
+                      ],
                       ["Call external sync tool", "Allowed", "Within policy"],
                     ].map(([action, decision, reason]) => (
-                      <div key={action} className="grid gap-2 border border-border bg-muted/15 p-3">
+                      <div
+                        key={action}
+                        className="grid gap-2 border border-border bg-muted/15 p-3"
+                      >
                         <div className="flex items-center justify-between gap-3">
                           <div className="text-sm font-medium">{action}</div>
                           <span className="border border-border bg-background px-2 py-0.5 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                             {decision}
                           </span>
                         </div>
-                        <div className="text-sm text-muted-foreground">{reason}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {reason}
+                        </div>
                       </div>
                     ))}
                   </div>
                 </Card>
 
-                <Card title="Working note" description="The strongest signal is still the sequence." className="lg:col-span-2">
+                <Card
+                  title="Working note"
+                  description="The strongest signal is still the sequence."
+                  className="lg:col-span-2"
+                >
                   <div className="flex flex-wrap items-start gap-4">
                     <div className="flex-1 border border-border bg-muted/15 p-4 text-sm leading-7 text-muted-foreground">
-                      Raw logs are a cost center. Trajectory intelligence is decision support.
-                      That is the product story that closes the gap between visibility and control.
+                      Raw logs are a cost center. Trajectory intelligence is
+                      decision support. That is the product story that closes
+                      the gap between visibility and control.
                     </div>
                     <div className="grid flex-1 grid-cols-2 gap-3">
                       {failureRows.map((item) => (
-                        <div key={item.label} className="border border-border bg-background px-3 py-3">
+                        <div
+                          key={item.label}
+                          className="border border-border bg-background px-3 py-3"
+                        >
                           <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                             {item.label}
                           </div>
@@ -670,7 +783,10 @@ export default function TrajectoryIntelligence() {
 
             <TabsContent value="learning" className="mt-5 outline-none">
               <div className="grid gap-5 items-stretch lg:grid-cols-2">
-                <Card title="Benchmark view" description="Patterns that move outcomes in the right direction.">
+                <Card
+                  title="Benchmark view"
+                  description="Patterns that move outcomes in the right direction."
+                >
                   <div className="border border-border bg-background">
                     <div className="grid grid-cols-[1.1fr_auto_1.2fr] border-b border-border px-3 py-2 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       <span>Pattern</span>
@@ -678,16 +794,26 @@ export default function TrajectoryIntelligence() {
                       <span>Evidence</span>
                     </div>
                     {learningRows.map(([pattern, effect, note]) => (
-                      <div key={pattern} className="grid grid-cols-[1.1fr_auto_1.2fr] border-b border-border px-3 py-3 last:border-b-0">
+                      <div
+                        key={pattern}
+                        className="grid grid-cols-[1.1fr_auto_1.2fr] border-b border-border px-3 py-3 last:border-b-0"
+                      >
                         <span className="text-sm font-medium">{pattern}</span>
-                        <span className="text-sm font-semibold tracking-tight">{effect}</span>
-                        <span className="text-sm text-muted-foreground">{note}</span>
+                        <span className="text-sm font-semibold tracking-tight">
+                          {effect}
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {note}
+                        </span>
                       </div>
                     ))}
                   </div>
                 </Card>
 
-                <Card title="Signals" description="Operational metrics with no bar-chart treatment.">
+                <Card
+                  title="Signals"
+                  description="Operational metrics with no bar-chart treatment."
+                >
                   <div className="grid grid-cols-2 gap-4">
                     {metrics.map((metric) => (
                       <MetricTile

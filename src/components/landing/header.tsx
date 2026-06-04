@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Menu, X } from "lucide-react";
@@ -38,13 +37,9 @@ export default function Header() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      className={`sticky top-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "border-b border-border/60 bg-background/80 backdrop-blur-xl shadow-[0_1px_0_0_hsl(var(--border)/0.45)]"
-          : "border-b border-transparent bg-transparent"
-      }`}
+      className={`sticky top-0 z-50 border-b`}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex items-center gap-3">
           <motion.div
             whileHover={{ scale: 1.05, rotate: -4 }}
@@ -54,14 +49,6 @@ export default function Header() {
           >
             <span className="text-sm font-semibold tracking-tight">T</span>
           </motion.div>
-          <div className="hidden sm:block">
-            <div className="text-sm font-medium tracking-[0.18em] text-muted-foreground uppercase">
-              Trajeckt
-            </div>
-            <div className="text-xs text-muted-foreground/70">
-              Agent operations platform
-            </div>
-          </div>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -69,7 +56,7 @@ export default function Header() {
             <Link
               key={link.name}
               href={link.href}
-              className="group relative px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="group relative px-4 py-2 text-sm text-muted-foreground font-medium transition-colors hover:text-foreground"
             >
               {link.name}
               <motion.span
@@ -83,26 +70,18 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="rounded-none text-sm text-muted-foreground hover:text-foreground"
-            render={<Link href="/auth/login" />}
-          >
-            Sign in
-          </Button>
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={springConfig}
           >
             <Button
-              size="sm"
+              size="lg"
               className="group relative overflow-hidden rounded-none px-4"
               render={<Link href="/auth/signup" />}
             >
               <span className="relative z-10 flex items-center gap-1.5">
-                Request demo
+                Sign In
                 <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
               </span>
             </Button>
@@ -163,7 +142,12 @@ export default function Header() {
                 </Button>
                 <Button
                   className="flex-1 rounded-none"
-                  render={<Link href="/auth/signup" onClick={() => setIsOpen(false)} />}
+                  render={
+                    <Link
+                      href="/auth/signup"
+                      onClick={() => setIsOpen(false)}
+                    />
+                  }
                 >
                   Request demo
                 </Button>

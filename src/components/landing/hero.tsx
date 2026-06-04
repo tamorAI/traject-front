@@ -55,25 +55,73 @@ const networkNodes = [
 ];
 
 const flows = [
-  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7],
-  [0, 8], [1, 9], [2, 9], [3, 10], [4, 11], [5, 12], [6, 13], [7, 14],
-  [8, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 14],
-  [8, 15], [9, 16], [10, 17], [11, 18], [12, 19], [13, 20], [14, 21],
-  [15, 16], [16, 17], [17, 18], [18, 19], [19, 20], [20, 21],
-  [15, 22], [16, 22], [16, 23], [17, 24], [18, 25], [19, 25], [20, 26],
-  [22, 23], [23, 24], [24, 25], [25, 26],
-  [22, 27], [23, 28], [24, 28], [25, 29], [26, 29],
-  [27, 28], [28, 29],
-  [27, 30], [28, 30], [29, 30],
+  [0, 1],
+  [1, 2],
+  [2, 3],
+  [3, 4],
+  [4, 5],
+  [5, 6],
+  [6, 7],
+  [0, 8],
+  [1, 9],
+  [2, 9],
+  [3, 10],
+  [4, 11],
+  [5, 12],
+  [6, 13],
+  [7, 14],
+  [8, 9],
+  [9, 10],
+  [10, 11],
+  [11, 12],
+  [12, 13],
+  [13, 14],
+  [8, 15],
+  [9, 16],
+  [10, 17],
+  [11, 18],
+  [12, 19],
+  [13, 20],
+  [14, 21],
+  [15, 16],
+  [16, 17],
+  [17, 18],
+  [18, 19],
+  [19, 20],
+  [20, 21],
+  [15, 22],
+  [16, 22],
+  [16, 23],
+  [17, 24],
+  [18, 25],
+  [19, 25],
+  [20, 26],
+  [22, 23],
+  [23, 24],
+  [24, 25],
+  [25, 26],
+  [22, 27],
+  [23, 28],
+  [24, 28],
+  [25, 29],
+  [26, 29],
+  [27, 28],
+  [28, 29],
+  [27, 30],
+  [28, 30],
+  [29, 30],
 ];
 
 const hubs = [3, 9, 11, 17, 24, 28];
 
-function getEdgePath(n1: { x: number; y: number }, n2: { x: number; y: number }) {
+function getEdgePath(
+  n1: { x: number; y: number },
+  n2: { x: number; y: number },
+) {
   const dx = n2.x - n1.x;
   const dy = n2.y - n1.y;
   const cpx = n1.x + dx / 2;
-  const cpy = n1.y + dy / 2 + (Math.abs(dx) * 0.08);
+  const cpy = n1.y + dy / 2 + Math.abs(dx) * 0.08;
   return `M ${n1.x} ${n1.y} Q ${cpx} ${cpy} ${n2.x} ${n2.y}`;
 }
 
@@ -83,7 +131,7 @@ function TrajectoryNetwork() {
       <svg
         viewBox="0 0 1440 850"
         preserveAspectRatio="xMidYMid slice"
-        className="w-full h-full opacity-40 dark:opacity-30"
+        className="w-full h-full opacity-15 dark:opacity-30"
       >
         <defs>
           <radialGradient id="coreGlow" cx="50%" cy="40%" r="45%">
@@ -250,8 +298,6 @@ export default function Hero() {
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
         style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(0,0,0,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.12) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
         }}
       />
@@ -279,7 +325,9 @@ export default function Hero() {
           className="mx-auto mt-8 max-w-4xl text-5xl font-semibold leading-[0.92] tracking-[-0.06em] sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-heading"
         >
           <span className="text-foreground">Understand, govern,</span>
-          <span className="block text-foreground/70">and control how AI agents operate.</span>
+          <span className="block text-foreground/70">
+            and control how AI agents operate.
+          </span>
         </motion.h1>
 
         <motion.p
@@ -288,9 +336,9 @@ export default function Hero() {
           transition={{ delay: 0.16, duration: 0.3 }}
           className="mx-auto mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg"
         >
-          Trajeckt turns every execution into a trajectory you can inspect, approve, replay,
-          and improve. Observe decision paths, enforce boundaries before action, and learn
-          from every recovery branch.
+          Trajeckt turns every execution into a trajectory you can inspect,
+          approve, replay, and improve. Observe decision paths, enforce
+          boundaries before action, and learn from every recovery branch.
         </motion.p>
 
         <motion.div
@@ -336,7 +384,12 @@ export default function Hero() {
                 Trajectory dashboard
               </div>
               <div className="text-[10px] font-mono text-muted-foreground/50">
-                {new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" })} UTC
+                {new Date().toLocaleTimeString("en-US", {
+                  hour12: false,
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}{" "}
+                UTC
               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4">

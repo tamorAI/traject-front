@@ -98,11 +98,26 @@ function GridPattern() {
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <svg className="w-full h-full opacity-[0.015]" viewBox="0 0 100 100">
         <defs>
-          <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
-            <path d="M 16 0 L 0 0 0 16" fill="none" stroke="currentColor" strokeWidth="0.5" />
+          <pattern
+            id="grid"
+            width="16"
+            height="16"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 16 0 L 0 0 0 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.5"
+            />
           </pattern>
         </defs>
-        <rect width="100" height="100" fill="url(#grid)" className="text-foreground" />
+        <rect
+          width="100"
+          height="100"
+          fill="url(#grid)"
+          className="text-foreground"
+        />
       </svg>
     </div>
   );
@@ -111,8 +126,6 @@ function GridPattern() {
 export default function CTASection() {
   return (
     <section className="relative py-12 sm:py-16 lg:py-20">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,0,0,0.04),transparent_50%)]" />
-
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
@@ -154,9 +167,10 @@ export default function CTASection() {
                 transition={{ delay: 0.1, duration: 0.3 }}
                 className="mt-5 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base"
               >
-                Start with a control surface built for agent observability, governance,
-                and investigation. Trajeckt makes it easier to see what happened,
-                enforce what should happen, and improve what happens next.
+                Start with a control surface built for agent observability,
+                governance, and investigation. Trajeckt makes it easier to see
+                what happened, enforce what should happen, and improve what
+                happens next.
               </motion.p>
 
               <motion.div
@@ -258,14 +272,22 @@ export default function CTASection() {
                         initial={{ width: 0 }}
                         whileInView={{ width: "auto" }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.8, duration: 0.6, ease: "easeOut" }}
+                        transition={{
+                          delay: 0.8,
+                          duration: 0.6,
+                          ease: "easeOut",
+                        }}
                         className="overflow-hidden whitespace-nowrap"
                       >
                         trajeckt deploy --prod --region us-east-1
                       </motion.span>
                       <motion.span
                         animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.8, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
+                        transition={{
+                          duration: 0.8,
+                          repeat: Number.POSITIVE_INFINITY,
+                          repeatType: "reverse",
+                        }}
                         className="inline-block h-3.5 w-2 bg-foreground/60"
                       />
                     </div>
