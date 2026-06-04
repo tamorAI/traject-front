@@ -324,10 +324,8 @@ export default function Hero() {
           transition={{ delay: 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mt-8 max-w-4xl text-5xl font-semibold leading-[0.92] tracking-[-0.06em] sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-heading"
         >
-          <span className="text-foreground">Understand, govern,</span>
-          <span className="block text-foreground/70">
-            and control how AI agents operate.
-          </span>
+          <span className="text-foreground">See inside your </span>
+          <span className="block text-foreground/70">AI agents' minds.</span>
         </motion.h1>
 
         <motion.p

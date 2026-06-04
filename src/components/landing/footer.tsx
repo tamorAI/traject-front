@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
+import Image from "next/image";
 
 const footerLinks = [
   {
@@ -47,17 +48,12 @@ export default function Footer() {
         <div className="grid gap-10 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:py-16">
           <div className="max-w-xl">
             <Link href="/" className="group inline-flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center border border-border/70 bg-foreground text-background">
-                <span className="text-sm font-semibold tracking-tight">T</span>
-              </span>
-              <div>
-                <div className="text-sm font-medium tracking-[0.18em] uppercase text-muted-foreground">
-                  Trajeckt
-                </div>
-                <div className="text-xs text-muted-foreground/70">
-                  Understand, govern, and control how AI agents operate.
-                </div>
-              </div>
+              <Image
+                src="/logo.png"
+                width={30}
+                height={30}
+                alt="traject-logo"
+              />
             </Link>
 
             <p className="mt-4 max-w-lg text-sm leading-6 text-muted-foreground">

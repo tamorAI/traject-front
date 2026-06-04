@@ -399,7 +399,7 @@ export default function TrajectoryIntelligence() {
                 <div className="space-y-3">
                   {feedEvents.map((event, index) => (
                     <div key={event.title} className="relative">
-                      <div className="absolute -left-[13px] top-2 h-2.5 w-2.5 border border-foreground bg-background" />
+                      <div className="absolute -left-[24px] top-2 h-2.5 w-2.5 bg-muted-foreground" />
                       <div className="grid gap-2 border border-border bg-muted/15 p-3">
                         <div className="flex items-center justify-between gap-3">
                           <div className="text-sm font-medium">

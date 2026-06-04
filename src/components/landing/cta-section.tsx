@@ -237,8 +237,8 @@ export default function CTASection() {
                   </div>
                   <span className="relative flex items-center gap-2 border border-border bg-background px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground/40 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-foreground" />
+                      <span className="absolute inline-flex h-full w-full animate-ping bg-foreground/40 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 bg-foreground" />
                     </span>
                     live
                   </span>
