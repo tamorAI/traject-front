@@ -9,6 +9,7 @@ import {
   useScroll,
 } from "motion/react";
 import { Button } from "@tamor/ui/components/button";
+import Image from "next/image";
 
 const navLinks = [
   { name: "Platform", href: "#platform" },
@@ -46,14 +47,13 @@ export default function Header() {
         <div className="hidden lg:block absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 text-muted-foreground/50 font-bold text-2xl leading-none pointer-events-none select-none z-10">
           +
         </div>
-        <Link href="/" className="group flex items-center gap-3">
+        <Link href="/">
           <motion.div
-            whileHover={{ scale: 1.05, rotate: -4 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.94 }}
             transition={springConfig}
-            className="flex h-10 w-10 items-center justify-center border border-border/70 bg-foreground text-background shadow-[0_12px_28px_-16px_hsl(var(--foreground)/0.45)]"
           >
-            <span className="text-sm font-semibold tracking-tight">T</span>
+            <Image src="/logo.png" width={40} height={40} alt="tamor-logo" />
           </motion.div>
         </Link>
 
