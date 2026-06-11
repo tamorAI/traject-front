@@ -4,12 +4,14 @@ import { motion } from "motion/react";
 import { Box, CircleCheck, DollarSign, Gem, type LucideIcon, Users } from "lucide-react";
 import { Badge } from "@tamor/ui/components/badge";
 import { Button } from "@tamor/ui/components/button";
+import { Tabs, TabsList, TabsTab } from "@tamor/ui/components/tabs";
 import { cn } from "@tamor/ui/lib/utils";
+import { useState } from "react";
 
 interface PricingPlan {
   name: string;
   description: string;
-  price: number;
+  monthlyPrice: number;
   isRecommended: boolean;
   icon: LucideIcon;
   features: string[];
@@ -19,7 +21,7 @@ const pricingPlans: PricingPlan[] = [
   {
     name: "Starter",
     description: "Perfect for individuals who are getting started.",
-    price: 10,
+    monthlyPrice: 10,
     isRecommended: false,
     icon: Box,
     features: [
@@ -33,7 +35,7 @@ const pricingPlans: PricingPlan[] = [
   {
     name: "Pro",
     description: "Ideal for professionals who need more power.",
-    price: 25,
+    monthlyPrice: 25,
     isRecommended: true,
     icon: Gem,
     features: [
@@ -48,7 +50,7 @@ const pricingPlans: PricingPlan[] = [
   {
     name: "Team",
     description: "Best for growing teams and small businesses.",
-    price: 0, 
+    monthlyPrice: 0, 
     isRecommended: false,
     icon: Users,
     features: [
@@ -62,7 +64,11 @@ const pricingPlans: PricingPlan[] = [
   },
 ];
 
+const DISCOUNT = 0.35;
+
 const Pricing = () => {
+  const [isYearly, setIsYearly] = useState(false);
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-20">
       <motion.div
@@ -96,20 +102,38 @@ const Pricing = () => {
         Flexible pricing designed to grow with you ready
       </motion.p>
 
-      <div className="mt-12 grid grid-cols-1 gap-1 border bg-muted/40 p-1 sm:mt-16 sm:mt-16 sm:grid-cols-2 md:mt-15 md:grid-cols-3">
+      <div className="mt-10">
+        <Tabs value={isYearly ? "yearly" : "monthly"} onValueChange={(v) => setIsYearly(v === "yearly")}>
+          <TabsList className="border bg-background p-0.5 shadow-none">
+            <TabsTab value="monthly" className="rounded-none px-5 data-active:bg-primary data-active:text-primary-foreground">
+              Monthly
+            </TabsTab>
+            <TabsTab value="yearly" className="rounded-none relative px-5 data-active:bg-primary data-active:text-primary-foreground">
+              Yearly
+            </TabsTab>
+          </TabsList>
+        </Tabs>
+      </div>
+
+      <div className="mt-6 grid grid-cols-1 gap-1 border bg-muted/40 p-1 sm:grid-cols-2 md:grid-cols-3">
         {pricingPlans.map((plan) => (
-          <PlanCard key={plan.name} plan={plan} />
+          <PlanCard key={plan.name} plan={plan} isYearly={isYearly} />
         ))}
       </div>
     </section>
   );
 };
 
-const PlanCard = ({ plan }: { plan: PricingPlan }) => {
+const PlanCard = ({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) => {
+  const displayPrice = isYearly
+    ? Math.round(plan.monthlyPrice * (1 - DISCOUNT))
+    : plan.monthlyPrice;
+  const yearlyTotal = Math.round(plan.monthlyPrice * 12 * (1 - DISCOUNT));
+
   return (
     <div className={cn(`shadow/5 relative border bg-background`, plan.isRecommended && "border-2 border-black")}>
       {plan.isRecommended || plan.name === "Team" ? (
-        <Badge className="absolute top-3 right-3">{plan.isRecommended ? "Most Popular" : "Comming Soon"}</Badge>
+        <Badge className="absolute top-3 right-3">{plan.isRecommended ? "Most Popular" : "Coming Soon"}</Badge>
       ): ""}
       <div className="border-b border-dashed p-6">
         <plan.icon className="mb-5 text-primary" />
@@ -119,12 +143,30 @@ const PlanCard = ({ plan }: { plan: PricingPlan }) => {
         <p className="my-2 text-muted-foreground">{plan.description}</p>
       </div>
       <div className="px-6 pt-5 pb-10">
-        <p className="mt-4 font-satoshi font-semibold text-4xl">
-          ${plan.price}
-        </p>
-        <p className="mt-1 text-muted-foreground text-sm tracking-normal">
-          one-time payment
-        </p>
+        {plan.monthlyPrice > 0 ? (
+          <>
+            <p className="mt-4 font-satoshi font-semibold text-4xl">
+              ${displayPrice}
+              <span className="text-sm font-normal text-muted-foreground">/mo</span>
+            </p>
+            {isYearly ? (
+              <p className="mt-1 text-muted-foreground text-sm tracking-normal">
+                ${yearlyTotal} billed annually
+              </p>
+            ) : (
+              <p className="mt-1 text-muted-foreground text-sm tracking-normal">
+                billed monthly
+              </p>
+            )}
+          </>
+        ) : (
+          <>
+            <p className="mt-4 font-satoshi font-semibold text-4xl">Free</p>
+            <p className="mt-1 text-muted-foreground text-sm tracking-normal">
+              no credit card required
+            </p>
+          </>
+        )}
         <Button
           className="my-6 w-full"
           size="lg"
